@@ -1,146 +1,375 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#101318">
-  <title>Transmission</title>
-  <link rel="stylesheet" href="./main.css">
-  <script defer src="./main.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#101318">
+    <title>Transmission</title>
+    <link rel="stylesheet" href="./main.css">
+    <script defer src="./main.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="./transmission-app.css" rel="stylesheet"/>
+    <link href="./images/favicon.ico" rel="icon"/>
+    <link href="./images/favicon.png" rel="shortcut icon"/>
+    <link rel="apple-touch-icon" href="./images/webclip-icon.png"/>
+
 </head>
 <body>
-  <svg class="svg-sprite" aria-hidden="true">
-    <symbol id="i-add" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
-    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M15 5v14"/></symbol>
-    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 11v6M15 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/></symbol>
-    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
-    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
-    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h8M16 18h4"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="14" cy="18" r="2"/></symbol>
-    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
-    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></symbol>
-    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></symbol>
-    <symbol id="i-speed" viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0M12 16l5-6"/><circle cx="12" cy="16" r="1"/></symbol>
-    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M5 21h14"/></symbol>
-    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 17V4m-5 5 5-5 5 5M5 21h14"/></symbol>
-    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2-7 4 14 2-7h6"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
-    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3Z"/></symbol>
-    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m4 20 4-.8L19 8l-3-3L5 16Z"/><path d="m14 7 3 3"/></symbol>
-    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-7 7Z"/><circle cx="8" cy="8" r="1"/></symbol>
-    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6 8a8 8 0 0 1 13 4M18 16A8 8 0 0 1 5 12"/></symbol>
-    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
-    <symbol id="i-queue-top" viewBox="0 0 24 24"><path d="M5 5h14M7 11l5-5 5 5M12 6v13"/></symbol>
-    <symbol id="i-queue-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6M12 8v11"/></symbol>
-    <symbol id="i-queue-down" viewBox="0 0 24 24"><path d="m6 10 6 6 6-6M12 5v11"/></symbol>
-    <symbol id="i-queue-bottom" viewBox="0 0 24 24"><path d="M5 19h14M7 13l5 5 5-5M12 5v13"/></symbol>
-  </svg>
+<svg class="svg-sprite" aria-hidden="true">
+    <symbol id="i-add" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14"/>
+    </symbol>
+    <symbol id="i-play" viewBox="0 0 24 24">
+        <path d="m8 5 11 7-11 7Z"/>
+    </symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24">
+        <path d="M9 5v14M15 5v14"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24">
+        <path d="M4 7h16M9 11v6M15 11v6M6 7l1 14h10l1-14M9 7V4h6v3"/>
+    </symbol>
+    <symbol id="i-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M12 11v6M12 7h.01"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6.5"/>
+        <path d="m16 16 5 5"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+        <path d="m6 6 12 12M18 6 6 18"/>
+    </symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24">
+        <path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h8M16 18h4"/>
+        <circle cx="16" cy="6" r="2"/>
+        <circle cx="8" cy="12" r="2"/>
+        <circle cx="14" cy="18" r="2"/>
+    </symbol>
+    <symbol id="i-more" viewBox="0 0 24 24">
+        <circle cx="5" cy="12" r="1"/>
+        <circle cx="12" cy="12" r="1"/>
+        <circle cx="19" cy="12" r="1"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24">
+        <path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/>
+    </symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/>
+    </symbol>
+    <symbol id="i-speed" viewBox="0 0 24 24">
+        <path d="M4 16a8 8 0 1 1 16 0M12 16l5-6"/>
+        <circle cx="12" cy="16" r="1"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M12 3v13m-5-5 5 5 5-5M5 21h14"/>
+    </symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24">
+        <path d="M12 17V4m-5 5 5-5 5 5M5 21h14"/>
+    </symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24">
+        <path d="M3 12h4l2-7 4 14 2-7h6"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="m4 12 5 5L20 6"/>
+    </symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24">
+        <path d="M3 6h7l2 2h9v11H3Z"/>
+    </symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24">
+        <path d="m4 20 4-.8L19 8l-3-3L5 16Z"/>
+        <path d="m14 7 3 3"/>
+    </symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24">
+        <path d="M3 12V4h8l10 10-7 7Z"/>
+        <circle cx="8" cy="8" r="1"/>
+    </symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M20 7v5h-5M4 17v-5h5"/>
+        <path d="M6 8a8 8 0 0 1 13 4M18 16A8 8 0 0 1 5 12"/>
+    </symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24">
+        <path d="m8 10 4 4 4-4"/>
+    </symbol>
+    <symbol id="i-queue-top" viewBox="0 0 24 24">
+        <path d="M5 5h14M7 11l5-5 5 5M12 6v13"/>
+    </symbol>
+    <symbol id="i-queue-up" viewBox="0 0 24 24">
+        <path d="m6 14 6-6 6 6M12 8v11"/>
+    </symbol>
+    <symbol id="i-queue-down" viewBox="0 0 24 24">
+        <path d="m6 10 6 6 6-6M12 5v11"/>
+    </symbol>
+    <symbol id="i-queue-bottom" viewBox="0 0 24 24">
+        <path d="M5 19h14M7 13l5 5 5-5M12 5v13"/>
+    </symbol>
+</svg>
 
-  <div class="app-shell">
+<div class="app-shell">
     <header class="topbar">
-      <div class="brand" aria-label="Transmission">
-        <span><span class="brand-title"><strong>Transmission</strong><span id="connection" class="connection brand-connection" role="status" aria-label="Connecting"><i></i><span class="sr-only">Connecting</span></span></span><small>Web interface</small></span>
-      </div>
-      <label class="search" for="torrent-search">
-        <svg><use href="#i-search"/></svg>
-        <input id="torrent-search" type="search" autocomplete="off" placeholder="Search torrents and labels">
-        <button id="clear-search" class="clear-search" type="button" aria-label="Clear search"><svg><use href="#i-close"/></svg></button>
-        <kbd>Ctrl K</kbd>
-      </label>
-      <div class="top-actions">
-        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme"><svg><use id="theme-use" href="#i-moon"/></svg></button>
-        <button id="settings-button" class="icon-button" type="button" title="Preferences" aria-label="Preferences"><svg><use href="#i-settings"/></svg></button>
-        <button id="more-button" class="icon-button" type="button" title="Information" aria-label="Information" aria-expanded="false"><svg><use href="#i-info"/></svg></button>
-      </div>
+        <div class="brand" aria-label="Transmission">
+            <span><span class="brand-title"><strong>Transmission</strong><span id="connection"
+                                                                               class="connection brand-connection"
+                                                                               role="status"
+                                                                               aria-label="Connecting"><i></i><span
+                    class="sr-only">Connecting</span></span></span><small>Web interface</small></span>
+        </div>
+        <label class="search" for="torrent-search">
+            <svg>
+                <use href="#i-search"/>
+            </svg>
+            <input id="torrent-search" type="search" autocomplete="off" placeholder="Search torrents and labels">
+            <button id="clear-search" class="clear-search" type="button" aria-label="Clear search">
+                <svg>
+                    <use href="#i-close"/>
+                </svg>
+            </button>
+            <kbd>Ctrl K</kbd>
+        </label>
+        <div class="top-actions">
+            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme">
+                <svg>
+                    <use id="theme-use" href="#i-moon"/>
+                </svg>
+            </button>
+            <button id="settings-button" class="icon-button" type="button" title="Preferences" aria-label="Preferences">
+                <svg>
+                    <use href="#i-settings"/>
+                </svg>
+            </button>
+            <button id="more-button" class="icon-button" type="button" title="Information" aria-label="Information"
+                    aria-expanded="false">
+                <svg>
+                    <use href="#i-info"/>
+                </svg>
+            </button>
+        </div>
     </header>
 
     <main class="content">
-      <section class="summary" aria-label="Transfer summary">
-        <article><span class="summary-icon download"><svg><use href="#i-download"/></svg></span><div><small>Download</small><strong id="speed-down">0 B/s</strong></div></article>
-        <article><span class="summary-icon upload"><svg><use href="#i-upload"/></svg></span><div><small>Upload</small><strong id="speed-up">0 B/s</strong></div></article>
-        <article><span class="summary-icon active"><svg><use href="#i-activity"/></svg></span><div><small>Active</small><strong id="active-total">0</strong></div></article>
-        <article><span class="summary-icon total"><svg><use href="#i-check"/></svg></span><div><small>Total</small><strong id="torrent-total">0</strong></div></article>
-      </section>
+        <section class="summary" aria-label="Transfer summary">
+            <article><span class="summary-icon download"><svg><use href="#i-download"/></svg></span>
+                <div><small>Download</small><strong id="speed-down">0 B/s</strong></div>
+            </article>
+            <article><span class="summary-icon upload"><svg><use href="#i-upload"/></svg></span>
+                <div><small>Upload</small><strong id="speed-up">0 B/s</strong></div>
+            </article>
+            <article><span class="summary-icon active"><svg><use href="#i-activity"/></svg></span>
+                <div><small>Active</small><strong id="active-total">0</strong></div>
+            </article>
+            <article><span class="summary-icon total"><svg><use href="#i-check"/></svg></span>
+                <div><small>Total</small><strong id="torrent-total">0</strong></div>
+            </article>
+        </section>
 
-      <section class="transfers" aria-labelledby="transfers-title">
-        <div class="section-header">
-          <div class="heading"><h1 id="transfers-title">Transfers</h1><p id="filter-summary">All torrents</p></div>
-          <div class="filters">
-            <div class="status-tabs" role="group" aria-label="Filter by status">
-              <button class="active" type="button" data-filter="all" aria-pressed="true">All <b id="count-all">0</b></button>
-              <button type="button" data-filter="active" aria-pressed="false">Active <b id="count-active">0</b></button>
-              <button type="button" data-filter="downloading" aria-pressed="false">Downloading <b id="count-downloading">0</b></button>
-              <button type="button" data-filter="seeding" aria-pressed="false">Seeding <b id="count-seeding">0</b></button>
-              <button type="button" data-filter="paused" aria-pressed="false">Stopped <b id="count-paused">0</b></button>
-              <button type="button" data-filter="finished" aria-pressed="false">Finished <b id="count-finished">0</b></button>
-              <button type="button" data-filter="error" aria-pressed="false">Errors <b id="count-error">0</b></button>
+        <section class="transfers" aria-labelledby="transfers-title">
+            <div class="section-header">
+                <div class="heading"><h1 id="transfers-title">Transfers</h1>
+                    <p id="filter-summary">All torrents</p></div>
+                <div class="filters">
+                    <div class="status-tabs" role="group" aria-label="Filter by status">
+                        <button class="active" type="button" data-filter="all" aria-pressed="true">All <b
+                                id="count-all">0</b></button>
+                        <button type="button" data-filter="active" aria-pressed="false">Active <b
+                                id="count-active">0</b></button>
+                        <button type="button" data-filter="downloading" aria-pressed="false">Downloading <b
+                                id="count-downloading">0</b></button>
+                        <button type="button" data-filter="seeding" aria-pressed="false">Seeding <b
+                                id="count-seeding">0</b></button>
+                        <button type="button" data-filter="paused" aria-pressed="false">Stopped <b
+                                id="count-paused">0</b></button>
+                        <button type="button" data-filter="finished" aria-pressed="false">Finished <b
+                                id="count-finished">0</b></button>
+                        <button type="button" data-filter="error" aria-pressed="false">Errors <b id="count-error">0</b>
+                        </button>
+                    </div>
+                    <label class="select-control"><span>Privacy</span><select id="privacy-filter"
+                                                                              aria-label="Filter by privacy">
+                        <option value="">All torrents</option>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+                        <svg>
+                            <use href="#i-chevron"/>
+                        </svg>
+                    </label>
+                    <label class="select-control"><span>Tracker</span><select id="tracker-filter"
+                                                                              aria-label="Filter by tracker">
+                        <option value="">All trackers</option>
+                    </select>
+                        <svg>
+                            <use href="#i-chevron"/>
+                        </svg>
+                    </label>
+                    <label class="select-control sort-control"><span>Sort</span><select id="sort-mode"
+                                                                                        aria-label="Sort torrents">
+                        <option value="name">Name</option>
+                        <option value="activity">Activity</option>
+                        <option value="age">Age</option>
+                        <option value="progress">Progress</option>
+                        <option value="queue">Queue order</option>
+                        <option value="ratio">Ratio</option>
+                        <option value="size">Size</option>
+                        <option value="state">State</option>
+                    </select>
+                        <svg>
+                            <use href="#i-chevron"/>
+                        </svg>
+                    </label>
+                    <button id="sort-direction" class="sort-direction" type="button" aria-label="Reverse sort order"
+                            aria-pressed="false" title="Reverse sort order">↑
+                    </button>
+                </div>
             </div>
-            <label class="select-control"><span>Privacy</span><select id="privacy-filter" aria-label="Filter by privacy"><option value="">All torrents</option><option value="public">Public</option><option value="private">Private</option></select><svg><use href="#i-chevron"/></svg></label>
-            <label class="select-control"><span>Tracker</span><select id="tracker-filter" aria-label="Filter by tracker"><option value="">All trackers</option></select><svg><use href="#i-chevron"/></svg></label>
-            <label class="select-control sort-control"><span>Sort</span><select id="sort-mode" aria-label="Sort torrents"><option value="name">Name</option><option value="activity">Activity</option><option value="age">Age</option><option value="progress">Progress</option><option value="queue">Queue order</option><option value="ratio">Ratio</option><option value="size">Size</option><option value="state">State</option></select><svg><use href="#i-chevron"/></svg></label>
-            <button id="sort-direction" class="sort-direction" type="button" aria-label="Reverse sort order" aria-pressed="false" title="Reverse sort order">↑</button>
-          </div>
-        </div>
 
-        <div class="toolbar" aria-label="Torrent actions">
-          <button id="add-button" class="button primary" type="button"><svg><use href="#i-add"/></svg>Add torrent</button>
-          <span class="toolbar-divider"></span>
-          <button class="button selection-action" data-action="start" type="button" disabled><svg><use href="#i-play"/></svg>Start</button>
-          <button class="button selection-action" data-action="stop" type="button" disabled><svg><use href="#i-pause"/></svg>Stop</button>
-          <button class="button selection-action" data-action="remove" type="button" disabled><svg><use href="#i-trash"/></svg>Remove</button>
-          <button class="button selection-action" data-action="details" type="button" disabled><svg><use href="#i-info"/></svg>Details</button>
-          <span class="toolbar-spacer"></span>
-          <button id="alt-speed" class="button icon-only" type="button" aria-pressed="false" title="Alternative speed limits"><svg><use href="#i-speed"/></svg><span class="sr-only">Alternative speed limits</span></button>
-          <button id="refresh-button" class="button icon-only" type="button" title="Refresh now"><svg><use href="#i-refresh"/></svg><span class="sr-only">Refresh now</span></button>
-          <span id="visible-count" class="visible-count">0 torrents</span>
-        </div>
+            <div class="toolbar" aria-label="Torrent actions">
+                <button id="add-button" class="button primary" type="button">
+                    <svg>
+                        <use href="#i-add"/>
+                    </svg>
+                    Add torrent
+                </button>
+                <span class="toolbar-divider"></span>
+                <button class="button selection-action" data-action="start" type="button" disabled>
+                    <svg>
+                        <use href="#i-play"/>
+                    </svg>
+                    Start
+                </button>
+                <button class="button selection-action" data-action="stop" type="button" disabled>
+                    <svg>
+                        <use href="#i-pause"/>
+                    </svg>
+                    Stop
+                </button>
+                <button class="button selection-action" data-action="remove" type="button" disabled>
+                    <svg>
+                        <use href="#i-trash"/>
+                    </svg>
+                    Remove
+                </button>
+                <button class="button selection-action" data-action="details" type="button" disabled>
+                    <svg>
+                        <use href="#i-info"/>
+                    </svg>
+                    Details
+                </button>
+                <span class="toolbar-spacer"></span>
+                <button id="alt-speed" class="button icon-only" type="button" aria-pressed="false"
+                        title="Alternative speed limits">
+                    <svg>
+                        <use href="#i-speed"/>
+                    </svg>
+                    <span class="sr-only">Alternative speed limits</span></button>
+                <button id="refresh-button" class="button icon-only" type="button" title="Refresh now">
+                    <svg>
+                        <use href="#i-refresh"/>
+                    </svg>
+                    <span class="sr-only">Refresh now</span></button>
+                <span id="visible-count" class="visible-count">0 torrents</span>
+            </div>
 
-        <div class="list-head"><label class="select-all-head" title="Select all visible torrents"><input id="select-all-torrents" type="checkbox" aria-label="Select all visible torrents"></label><span>Name and progress</span><span>Status</span><span>Transfer</span><span>Queue / priority</span><span>Ratio</span><span></span></div>
-        <div id="torrent-scroll" class="torrent-scroll">
-          <ul id="torrent-list" class="torrent-list" aria-label="Torrents" aria-multiselectable="true"></ul>
-          <div id="empty-state" class="empty-state" hidden>
-            <span><svg><use href="#i-download"/></svg></span>
-            <h2>No torrents to show</h2>
-            <p id="empty-message">Add a torrent file, magnet link, or URL to begin.</p>
-            <button id="empty-add" class="button primary" type="button"><svg><use href="#i-add"/></svg>Add torrent</button>
-          </div>
-        </div>
-      </section>
+            <div class="list-head"><label class="select-all-head" title="Select all visible torrents"><input
+                    id="select-all-torrents" type="checkbox" aria-label="Select all visible torrents"></label><span>Name and progress</span><span>Status</span><span>Transfer</span><span>Queue / priority</span><span>Ratio</span><span></span>
+            </div>
+            <div id="torrent-scroll" class="torrent-scroll">
+                <ul id="torrent-list" class="torrent-list" aria-label="Torrents" aria-multiselectable="true"></ul>
+                <div id="empty-state" class="empty-state" hidden>
+                    <span><svg><use href="#i-download"/></svg></span>
+                    <h2>No torrents to show</h2>
+                    <p id="empty-message">Add a torrent file, magnet link, or URL to begin.</p>
+                    <button id="empty-add" class="button primary" type="button">
+                        <svg>
+                            <use href="#i-add"/>
+                        </svg>
+                        Add torrent
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
-  </div>
+</div>
 
-  <aside id="details-panel" class="details-panel" aria-labelledby="details-title" aria-hidden="true">
-    <header><div><small>Torrent details</small><h2 id="details-title">Details</h2></div><button id="details-close" class="icon-button" type="button" aria-label="Close details"><svg><use href="#i-close"/></svg></button></header>
+<aside id="details-panel" class="details-panel" aria-labelledby="details-title" aria-hidden="true">
+    <header>
+        <div><small>Torrent details</small>
+            <h2 id="details-title">Details</h2></div>
+        <button id="details-close" class="icon-button" type="button" aria-label="Close details">
+            <svg>
+                <use href="#i-close"/>
+            </svg>
+        </button>
+    </header>
     <nav class="detail-tabs" aria-label="Detail sections">
-      <button class="active" data-detail-tab="info" type="button">Info</button>
-      <button data-detail-tab="files" type="button">Files</button>
-      <button data-detail-tab="peers" type="button">Peers</button>
-      <button data-detail-tab="trackers" type="button">Trackers</button>
+        <button class="active" data-detail-tab="info" type="button">Info</button>
+        <button data-detail-tab="files" type="button">Files</button>
+        <button data-detail-tab="peers" type="button">Peers</button>
+        <button data-detail-tab="trackers" type="button">Trackers</button>
     </nav>
     <div id="details-content" class="details-content"></div>
-  </aside>
+</aside>
 
-  <div id="selection-bar" class="selection-bar" aria-live="polite" aria-hidden="true">
+<div id="selection-bar" class="selection-bar" aria-live="polite" aria-hidden="true">
     <strong id="selected-count">0</strong><span>selected</span>
-    <button data-action="start" type="button"><svg><use href="#i-play"/></svg>Start</button>
-    <button data-action="stop" type="button"><svg><use href="#i-pause"/></svg>Stop</button>
-    <button data-action="verify" type="button"><svg><use href="#i-check"/></svg>Verify</button>
-    <button data-action="remove" class="danger-text" type="button"><svg><use href="#i-trash"/></svg>Remove</button>
-    <button data-action="deselect" class="icon-only" type="button" aria-label="Clear selection"><svg><use href="#i-close"/></svg></button>
-  </div>
+    <button data-action="start" type="button">
+        <svg>
+            <use href="#i-play"/>
+        </svg>
+        Start
+    </button>
+    <button data-action="stop" type="button">
+        <svg>
+            <use href="#i-pause"/>
+        </svg>
+        Stop
+    </button>
+    <button data-action="verify" type="button">
+        <svg>
+            <use href="#i-check"/>
+        </svg>
+        Verify
+    </button>
+    <button data-action="remove" class="danger-text" type="button">
+        <svg>
+            <use href="#i-trash"/>
+        </svg>
+        Remove
+    </button>
+    <button data-action="deselect" class="icon-only" type="button" aria-label="Clear selection">
+        <svg>
+            <use href="#i-close"/>
+        </svg>
+    </button>
+</div>
 
-  <div id="drop-overlay" class="drop-overlay" hidden><div><svg><use href="#i-add"/></svg><strong>Drop torrents to add</strong><span>Release torrent files or links here</span></div></div>
-  <div id="popup-menu" class="popup-menu" hidden></div>
-  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+<div id="drop-overlay" class="drop-overlay" hidden>
+    <div>
+        <svg>
+            <use href="#i-add"/>
+        </svg>
+        <strong>Drop torrents to add</strong><span>Release torrent files or links here</span></div>
+</div>
+<div id="popup-menu" class="popup-menu" hidden></div>
+<div id="toast-region" class="toast-region" aria-live="polite"></div>
 
-  <dialog id="modal" class="modal">
+<dialog id="modal" class="modal">
     <form id="modal-form" method="dialog">
-      <header><div><h2 id="modal-title"></h2><p id="modal-subtitle"></p></div><button id="modal-close" class="icon-button" value="cancel" type="submit" aria-label="Close"><svg><use href="#i-close"/></svg></button></header>
-      <div id="modal-body" class="modal-body"></div>
-      <footer><button id="modal-cancel" class="button" value="cancel" type="submit">Cancel</button><button id="modal-confirm" class="button primary" value="default" type="submit">Save</button></footer>
+        <header>
+            <div><h2 id="modal-title"></h2>
+                <p id="modal-subtitle"></p></div>
+            <button id="modal-close" class="icon-button" value="cancel" type="submit" aria-label="Close">
+                <svg>
+                    <use href="#i-close"/>
+                </svg>
+            </button>
+        </header>
+        <div id="modal-body" class="modal-body"></div>
+        <footer>
+            <button id="modal-cancel" class="button" value="cancel" type="submit">Cancel</button>
+            <button id="modal-confirm" class="button primary" value="default" type="submit">Save</button>
+        </footer>
     </form>
-  </dialog>
+</dialog>
 </body>
 </html>
