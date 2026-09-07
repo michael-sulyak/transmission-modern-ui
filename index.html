@@ -242,17 +242,17 @@
                     </svg>
                     Stop
                 </button>
+                <button class="button selection-action" data-action="verify" type="button" disabled>
+                    <svg>
+                        <use href="#i-check"/>
+                    </svg>
+                    Verify
+                </button>
                 <button class="button selection-action" data-action="remove" type="button" disabled>
                     <svg>
                         <use href="#i-trash"/>
                     </svg>
                     Remove
-                </button>
-                <button class="button selection-action" data-action="details" type="button" disabled>
-                    <svg>
-                        <use href="#i-info"/>
-                    </svg>
-                    Details
                 </button>
                 <span class="toolbar-spacer"></span>
                 <button id="alt-speed" class="button icon-only" type="button" aria-pressed="false"
@@ -270,7 +270,7 @@
             </div>
 
             <div class="list-head"><label class="select-all-head" title="Select all visible torrents"><input
-                    id="select-all-torrents" type="checkbox" aria-label="Select all visible torrents"></label><span>Name and progress</span><span>Status</span><span>Transfer</span><span>Queue / priority</span><span>Ratio</span><span></span>
+                    id="select-all-torrents" type="checkbox" aria-label="Select all visible torrents"></label><span>Name and progress</span><span>Status</span><span>Transfer</span><span>Queue / priority</span><span>Ratio</span><span></span><span class="select-all-mobile-text">Select all visible torrents</span>
             </div>
             <div id="torrent-scroll" class="torrent-scroll">
                 <ul id="torrent-list" class="torrent-list" aria-label="Torrents" aria-multiselectable="true"></ul>

@@ -662,7 +662,6 @@
         setEnabled('stop', canStop);
         setEnabled('remove', count > 0);
         setEnabled('verify', count > 0);
-        setEnabled('details', count > 0);
         const visibleIds = sortedVisibleTorrents().map(torrent => torrent.id);
         const visibleSelected = visibleIds.filter(id => state.selected.has(id)).length;
         const selectAll = $('#select-all-torrents');
