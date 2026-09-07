@@ -503,9 +503,6 @@
 
         const main = document.createElement('div');
         main.className = 'torrent-main';
-        const fileIcon = document.createElement('span');
-        fileIcon.className = 'file-icon';
-        fileIcon.textContent = (torrent.name || 'T').trim().charAt(0).toUpperCase() || 'T';
         const titleLine = document.createElement('div');
         titleLine.className = 'torrent-title-line';
         const name = document.createElement('span');
@@ -539,8 +536,9 @@
         const subline = document.createElement('div');
         subline.className = 'torrent-subline';
         const completeBytes = Math.max(0, (torrent.size_when_done || 0) - (torrent.left_until_done || 0));
-        subline.textContent = `${formatBytes(completeBytes)} of ${formatBytes(torrent.size_when_done || torrent.total_size || 0)}${torrent.status !== STATUS.STOPPED && torrent.eta >= 0 ? ` · ${formatDuration(torrent.eta)} remaining` : ''}`;
-        main.append(fileIcon, titleLine, progressLine, subline);
+        const uploadedBytes = Math.max(0, Number(torrent.uploaded_ever) || 0);
+        subline.textContent = `Downloaded ${formatBytes(completeBytes)} of ${formatBytes(torrent.size_when_done || torrent.total_size || 0)}${uploadedBytes > 0 ? ` · Uploaded ${formatBytes(uploadedBytes)}` : ''}${torrent.status !== STATUS.STOPPED && torrent.eta >= 0 ? ` · ${formatDuration(torrent.eta)} remaining` : ''}`;
+        main.append(titleLine, progressLine, subline);
 
         const stateCell = document.createElement('div');
         stateCell.className = 'state-cell';
@@ -1080,6 +1078,7 @@
         state.detailIds = availableIds;
         state.detailsOpen = true;
         $('#details-panel').classList.add('open');
+        $('#details-backdrop').classList.add('open');
         $('#details-panel').setAttribute('aria-hidden', 'false');
         $('#details-content').innerHTML = '<div class="loading">Loading torrent details…</div>';
         try {
@@ -1098,6 +1097,7 @@
         state.detailsOpen = false;
         state.detailIds = [];
         $('#details-panel').classList.remove('open');
+        $('#details-backdrop').classList.remove('open');
         $('#details-panel').setAttribute('aria-hidden', 'true');
     }
 
@@ -1802,6 +1802,7 @@
             $('#popup-menu').hidden ? showMoreMenu() : closePopup();
         });
         $('#details-close').addEventListener('click', closeDetails);
+        $('#details-backdrop').addEventListener('click', closeDetails);
         $$('.detail-tabs button').forEach(button => button.addEventListener('click', () => {
             state.detailTab = button.dataset.detailTab;
             renderDetails();
