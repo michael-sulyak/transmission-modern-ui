@@ -34,7 +34,7 @@
         check: '<svg><use href="#i-check"/></svg>', edit: '<svg><use href="#i-edit"/></svg>',
         folder: '<svg><use href="#i-folder"/></svg>', tag: '<svg><use href="#i-tag"/></svg>',
         more: '<svg><use href="#i-more"/></svg>', add: '<svg><use href="#i-add"/></svg>',
-        activity: '<svg><use href="#i-activity"/></svg>',
+        activity: '<svg><use href="#i-activity"/></svg>', refresh: '<svg><use href="#i-refresh"/></svg>',
         queueTop: '<svg><use href="#i-queue-top"/></svg>', queueUp: '<svg><use href="#i-queue-up"/></svg>',
         queueDown: '<svg><use href="#i-queue-down"/></svg>', queueBottom: '<svg><use href="#i-queue-bottom"/></svg>'
     });
@@ -749,11 +749,12 @@
         }
     }
 
-    function popupButton(label, action, iconName, className = '') {
+    function popupButton(label, action, iconName, className = '', enabled = true) {
         const actionIds = [...state.contextIds];
         const button = document.createElement('button');
         button.type = 'button';
         button.className = className;
+        button.disabled = !enabled;
         button.innerHTML = icon(iconName);
         button.append(document.createTextNode(label));
         button.addEventListener('click', () => handleAction(action, actionIds.length ? actionIds : null));
@@ -787,12 +788,22 @@
 
     function showTorrentMenuAt(x, y, id) {
         state.contextIds = [id];
+        const torrent = state.torrents.get(id);
+        const isStopped = torrent?.status === STATUS.STOPPED;
+        const isChecking = torrent?.status === STATUS.CHECK || torrent?.status === STATUS.CHECK_WAIT;
+        const canReannounce = torrent?.status === STATUS.DOWNLOAD || torrent?.status === STATUS.DOWNLOAD_WAIT ||
+            torrent?.status === STATUS.SEED || torrent?.status === STATUS.SEED_WAIT;
         const menu = $('#popup-menu');
         menu.replaceChildren(
-            popupTitle('Torrent'), popupButton('Start', 'start', 'play'), popupButton('Start now', 'start-now', 'play'), popupButton('Stop', 'stop', 'pause'),
-            popupButton('Verify local data', 'verify', 'check'), popupButton('Ask tracker for more peers', 'reannounce', 'info'), divider(),
-            popupButton('Details', 'details', 'info'), divider(),
-            popupButton('Remove…', 'remove', 'trash', 'danger-text')
+            popupTitle('Torrent'),
+            popupButton('Start', 'start', 'play', '', isStopped),
+            popupButton('Start now', 'start-now', 'play', '', isStopped),
+            popupButton('Stop', 'stop', 'pause', '', Boolean(torrent) && !isStopped),
+            popupButton('Verify local data', 'verify', 'check', '', Boolean(torrent) && !isChecking),
+            popupButton('Ask tracker for more peers', 'reannounce', 'refresh', '', canReannounce),
+            popupButton('Details', 'details', 'info', '', Boolean(torrent)),
+            divider(),
+            popupButton('Remove…', 'remove', 'trash', 'danger-text', Boolean(torrent))
         );
         positionPopup(x, y);
     }
@@ -1203,7 +1214,7 @@
         for (const [label, action, className] of [['Low', 'priority-low', 'low'], ['Normal', 'priority-normal', 'normal'], ['High', 'priority-high', 'high']]) {
             const button = document.createElement('button');
             button.type = 'button';
-            button.className = `torrent-priority-block ${className}${samePriority && currentPriorityName === label ? ' active' : ''}`;
+            button.className = `square-control ${className}${samePriority && currentPriorityName === label ? ' active' : ''}`;
             button.textContent = label.charAt(0);
             button.title = `Set ${label.toLowerCase()} priority`;
             button.setAttribute('aria-label', button.title);
