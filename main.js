@@ -9,16 +9,21 @@
         'peers_connected', 'peers_getting_from_us', 'peers_sending_to_us',
         'percent_done', 'queue_position', 'rate_download', 'rate_upload',
         'recheck_progress', 'seed_ratio_mode', 'seed_ratio_limit', 'size_when_done',
-        'total_size', 'trackers', 'download_dir', 'uploaded_ever', 'upload_ratio',
+        'total_size', 'trackers', 'download_dir', 'downloaded_ever', 'uploaded_ever', 'upload_ratio',
         'webseeds_sending_to_us', 'added_date', 'file_count', 'is_private',
         'primary_mime_type', 'activity_date', 'bandwidth_priority'
     ];
     const EXTRA_FIELDS = [
         'comment', 'creator', 'date_created', 'files', 'file_stats', 'hash_string',
         'magnet_link', 'piece_count', 'piece_size', 'activity_date', 'corrupt_ever',
-        'desired_available', 'downloaded_ever', 'have_unchecked', 'have_valid',
+        'desired_available', 'have_unchecked', 'have_valid',
         'peers', 'start_date', 'tracker_stats', 'webseeds_ex'
     ];
+    const DYNAMIC_DETAIL_FIELDS = Object.freeze({
+        files: ['id', 'files', 'file_stats'],
+        peers: ['id', 'peers'],
+        trackers: ['id', 'tracker_stats']
+    });
     const STATUS = Object.freeze({
         STOPPED: 0,
         CHECK_WAIT: 1,
@@ -417,6 +422,7 @@
                 state.pendingRemovals.delete(id);
             }
             for (const id of [...state.pendingRemovals]) if (!incomingIds.has(id)) state.pendingRemovals.delete(id);
+            await refreshOpenTorrentDetails();
             setConnection('online', 'Connected');
             render();
             if (!quiet) toast('Torrents refreshed', '', 'success');
@@ -425,6 +431,25 @@
         } finally {
             state.polling = false;
             schedulePoll();
+        }
+    }
+
+    async function refreshOpenTorrentDetails() {
+        if (!state.detailsOpen) return;
+        const fields = DYNAMIC_DETAIL_FIELDS[state.detailTab];
+        const ids = state.detailIds.filter(id => state.torrents.has(id) && !state.pendingRemovals.has(id));
+        if (!fields || !ids.length) return;
+
+        try {
+            const result = await rpc.request('torrent_get', {ids, fields});
+            for (const torrent of result.torrents || []) {
+                if (!state.pendingRemovals.has(torrent.id)) {
+                    state.torrents.set(torrent.id, {...state.torrents.get(torrent.id), ...torrent});
+                }
+            }
+        } catch (error) {
+            // Keep the main list connected and updating if an optional detail refresh fails.
+            console.warn('Could not refresh open torrent details.', error);
         }
     }
 
